@@ -8,11 +8,11 @@ export function middleware(request: NextRequest) {
 
   if (!loginMap[ip]) {
     loginMap[ip] = true;
-    return NextResponse.rewrite(new URL("/login", request.url));
+    //return NextResponse.rewrite(new URL("/login", request.url));
   }
 
   if (request.nextUrl.pathname.startsWith("/logout")) {
     loginMap[ip] = false;
-    return NextResponse.rewrite(new URL("/login", request.url));
+    //return NextResponse.rewrite(new URL("/login", request.url));
   }
 }

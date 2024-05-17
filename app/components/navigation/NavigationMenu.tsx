@@ -7,6 +7,10 @@ import { TopNavBar } from "./TopNavBar";
 import { LeftNavDrawer } from "./LeftNavDrawer";
 import { filterNavigationActions } from "./navigation.util";
 import { styled } from "@mui/material/styles";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 export const NavigationMenu = ({
   label,
@@ -19,6 +23,7 @@ export const NavigationMenu = ({
 }: NavigationMenuProps) => {
   const [open, setOpen] = React.useState(false);
   const [selectedNav, setSelectedNav]: any = React.useState();
+  const queryClient = new QueryClient()
 
   const router = useRouter();
 
@@ -45,53 +50,56 @@ export const NavigationMenu = ({
   baseClassNames.push(isAuthorized ? "authorized" : "unauthorized");
 
   return (
-    <LayoutBaseStyled
-      className={baseClassNames.join(" ")}
-      data-testid={isAuthorized ? "authorized" : "unauthorized"}
-      sx={{
-        display: "flex",
-        flexGrow: 1,
-      }}
-      aria-label="Base application"
-    >
-      <TopNavBar
-        isAuthorized={isAuthorized}
-        topNavActions={topNavActions}
-        navClickHandler={navClickHandler}
-        selectedNav={selectedNav}
-        label={label}
-        expandNav={expandNav}
-        open={open}
-        showMenu={!!leftNavCount}
-        topNavHeight={topNavHeight}
-        maxWidth={leftNavMaxWidth}
-      />
-
-      <LeftNavDrawer
-        isAuthorized={isAuthorized}
-        leftNavigationActions={leftNavActions}
-        leftNavigationClick={navClickHandler}
-        selectedNav={selectedNav}
-        open={open}
-        showDrawer={!!leftNavCount}
-        collapseNav={collapseNav}
-        minWidth={leftNavMinWidth}
-        maxWidth={leftNavMaxWidth}
-        topNavHeight={topNavHeight}
-      />
-
-      <Box
-        className={"base-page-container"}
+    <QueryClientProvider client={queryClient}>
+      <LayoutBaseStyled
+        className={baseClassNames.join(" ")}
+        data-testid={isAuthorized ? "authorized" : "unauthorized"}
         sx={{
-          marginTop: `${topNavHeight}px`,
-          marginLeft: open ? `${leftNavMaxWidth}px` : `${leftNavMinWidth}px`,
-          width: "100%",
-          height: "100%",
-          padding: "24px",
-        }}>
-        {children}
-      </Box>
-    </LayoutBaseStyled>
+          display: "flex",
+          flexGrow: 1,
+        }}
+        aria-label="Base application"
+      >
+        <TopNavBar
+          isAuthorized={isAuthorized}
+          topNavActions={topNavActions}
+          navClickHandler={navClickHandler}
+          selectedNav={selectedNav}
+          label={label}
+          expandNav={expandNav}
+          open={open}
+          showMenu={!!leftNavCount}
+          topNavHeight={topNavHeight}
+          maxWidth={leftNavMaxWidth}
+        />
+
+        <LeftNavDrawer
+          isAuthorized={isAuthorized}
+          leftNavigationActions={leftNavActions}
+          leftNavigationClick={navClickHandler}
+          selectedNav={selectedNav}
+          open={open}
+          showDrawer={!!leftNavCount}
+          collapseNav={collapseNav}
+          minWidth={leftNavMinWidth}
+          maxWidth={leftNavMaxWidth}
+          topNavHeight={topNavHeight}
+        />
+
+        <Box
+          className={"base-page-container"}
+          sx={{
+            marginTop: `${topNavHeight}px`,
+            marginLeft: open ? `${leftNavMaxWidth}px` : `${leftNavMinWidth}px`,
+            width: "100%",
+            height: "100%",
+            padding: "24px",
+          }}>
+          {children}
+        </Box>
+
+      </LayoutBaseStyled >
+    </QueryClientProvider>
   );
 };
 

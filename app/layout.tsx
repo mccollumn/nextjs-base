@@ -6,6 +6,14 @@ import theme from "@/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { NavigationMenu } from "./components/navigation/NavigationMenu";
 import { navigationActions } from "./components/navigation/navigationActions";
+import * as Realm from "realm-web";
+
+const appId = process.env.ATLAS_APP_ID;
+
+const realmApp = new Realm.App({ id: appId });
+
+console.log('app', realmApp);
+console.log('appID', appId);
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,12 +33,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <NavigationMenu
-              isAuthorized={true}
-              navigationActions={navigationActions}
-            >
-              {children}
-            </NavigationMenu>
+              <NavigationMenu
+                isAuthorized={true}
+                navigationActions={navigationActions}
+              >
+                {children}
+              </NavigationMenu>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
