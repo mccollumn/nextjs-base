@@ -22,9 +22,9 @@
     "@mui/material-nextjs": "^7.1.0",
     "@mui/x-date-pickers": "^7.17.0",
     "@types/lodash": "^4.17.16",
-    "date-fns": "^3.3.1",
+    "date-fns": "^4.1.0",
     "lodash": "^4.17.21",
-    "mongodb": "^6.7.0",
+    "mongodb": "^6.16.0",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.9.14",
@@ -35,7 +35,7 @@
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.2.23",
+    "@chromatic-com/storybook": "^3.2.6",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-interactions": "^8.6.12",
     "@storybook/addon-links": "^8.6.12",
